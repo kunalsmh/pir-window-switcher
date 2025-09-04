@@ -18,7 +18,7 @@ pdf_path = r"C:\Users\Kunal\Downloads\physics.pdf"
 image = PIL.Image.open(icon_path)
 app = Flask(__name__)
 last_open_time = 0
-COOLDOWN = 1  # seconds
+COOLDOWN = 2  # seconds
 
 def log(msg):
     print(msg)
