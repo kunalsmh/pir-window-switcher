@@ -1,4 +1,4 @@
-## USing PIR motion sensor to detect if someone is entering the room
+## Using PIR motion sensor to detect if someone is entering the room
 The motion sensor sends an API request to the local hosted server if someone is detected and opens the defined file/app.
 
 ### Hardware used
@@ -15,4 +15,6 @@ The board is powered with my personal 10,000Mah spare power bank but it can be p
 4. Go to main.cpp, replace your `WIFI_SSID`, `WIFI_PASSWORD`, `API_URL` with your credentials
 5. Place the device where you want the sensor to detect presence
 
-- API Server runs in the background (system tray)
+- The API server runs in the background, close it from system tray to end the process.
+
+###### I use this so my parents think i'm always studying but you can use this however you want haha
