@@ -3,7 +3,7 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
 
-#define PIR_PIN 12 //replace this with the GPIO pin your PIR sensor is connected to
+#define PIR_PIN 12 // GPIO pin your PIR sensor is connected to
 #define LED_PIN 2
 
 // Replace with your WIFI credentials
@@ -11,12 +11,15 @@
 #define WIFI_PASSWORD "password"
 
 // Replace with your PC's LAN IP where the flask server is running
-#define API_URL "http://x.x.x.x:yyyy/motion"
+#define MOTION_API_URL "http://x.x.x.x:yyyy/motion"
+#define PING_API_URL   "http://x.x.x.x:yyyy/ping"
 
 WiFiMulti wifiMulti;
 int motionState = 0;
-bool wasConnected = false;
 bool motionSent = false;  // Ensure request sent once per motion event
+
+unsigned long lastPingTime = 0;
+const unsigned long PING_INTERVAL = 30000; // 30 seconds (adjust as needed)
 
 void setup() {
   Serial.begin(115200);
@@ -50,20 +53,12 @@ void loop() {
   motionState = digitalRead(PIR_PIN);
   digitalWrite(LED_PIN, motionState);
 
-  // Debug: check connectivity to Flask server
-  WiFiClient testClient;
-  if (!testClient.connect("192.168.1.150", 5000)) {
-    Serial.println("Server not found");
-    delay(1000);
-    return;
-  }
-
-  // Motion detected → send request once
+  // Send motion request once per detection
   if (motionState == HIGH && !motionSent) {
     Serial.println("Motion detected! Sending request to API...");
 
     HTTPClient http;
-    http.begin(API_URL);
+    http.begin(MOTION_API_URL);
     int httpResponseCode = http.GET();
 
     if (httpResponseCode > 0) {
@@ -72,7 +67,7 @@ void loop() {
       Serial.println(response);
       motionSent = true;  // Mark as sent
     } else {
-      Serial.print("Error on sending request: ");
+      Serial.print("Error sending motion request: ");
       Serial.println(httpResponseCode);
     }
 
@@ -83,6 +78,25 @@ void loop() {
   if (motionState == LOW && motionSent) {
     motionSent = false;
     Serial.println("No motion");
+  }
+
+  // Periodically ping the server to keep it awake
+  unsigned long now = millis();
+  if (now - lastPingTime >= PING_INTERVAL) {
+    lastPingTime = now;
+
+    Serial.println("Pinging server to keep awake...");
+    HTTPClient http;
+    http.begin(PING_API_URL);
+    int pingResponse = http.GET();
+    if (pingResponse > 0) {
+      Serial.print("Ping response: ");
+      Serial.println(http.getString());
+    } else {
+      Serial.print("Ping failed: ");
+      Serial.println(pingResponse);
+    }
+    http.end();
   }
 
   delay(50);

@@ -5,3 +5,5 @@
 .vscode/ipch
 build
 dist
+.server.spec
+.balls.spec
