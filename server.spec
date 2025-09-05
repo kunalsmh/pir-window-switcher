@@ -2,10 +2,10 @@
 
 
 a = Analysis(
-    ['C:\\Users\\Kunal\\Documents\\PlatformIO\\Projects\\motion\\eyes\\src\\server.py'],
+    ['C:\\Users\\Kunal\\Documents\\PlatformIO\\Projects\\pir-window-switcher\\src\\server.py'],
     pathex=[],
     binaries=[],
-    datas=[('C:\\Users\\Kunal\\Documents\\PlatformIO\\Projects\\motion\\eyes\\src\\icon.png', '.')],
+    datas=[('C:\\Users\\Kunal\\Documents\\PlatformIO\\Projects\\pir-window-switcher\\src\\icon.png', '.')],
     hiddenimports=[],
     hookspath=[],
     hooksconfig={},
