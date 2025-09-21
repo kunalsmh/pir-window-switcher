@@ -18,3 +18,10 @@ The board is powered with my personal 10,000Mah spare power bank but it can be p
 - The API server runs in the background, close it from system tray to end the process.
 
 ###### I use this so my parents think i'm always studying but you can use this however you want haha
+
+<table>
+  <tr>
+    <td><img src="https://github.com/kunalsmh/pir-window-switcher/blob/master/src/1.png" width="350"/></td>
+    <td><img src="https://github.com/kunalsmh/pir-window-switcher/blob/master/src/eee.png" width="350"/></td>
+  </tr>
+</table>
