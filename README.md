@@ -1,4 +1,4 @@
-## Using PIR motion sensor to detect if someone is entering the room
+## Using PIR motion sensor to change tabs
 The motion sensor sends an API request to the local hosted server if someone is detected and opens the defined file/app.
 
 ### Hardware used
